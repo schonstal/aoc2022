@@ -16,7 +16,6 @@ fn main() {
                 current = 0;
             }
         }
-
     }
     
     let mut sum = 0;
