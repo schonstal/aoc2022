@@ -14,3 +14,7 @@ config/name="AdventOfCode"
 run/main_scene="res://control.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.0970054, 0.123541, 0.225141, 1)

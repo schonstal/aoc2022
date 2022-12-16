@@ -1,7 +1,10 @@
 extends Control
 @onready var input_box = %Input
 @onready var output = %Output
-@export var y = 2000000
+@export var y = 2_000_000
+@export_multiline var input = ""
+
+var sensors = []
 
 class Sensor:
   var position:Vector2
@@ -25,13 +28,15 @@ class Sensor:
     self.target = target
     
   func y_intersections(y:int) -> PackedVector2Array:
-    return Geometry2D.intersect_polyline_with_polygon(
+    var result = Geometry2D.intersect_polyline_with_polygon(
       PackedVector2Array([
-        Vector2(5000000, y),
-        Vector2(-5000000, y)
+        Vector2(500000000, y),
+        Vector2(-500000000, y)
       ]),
       polygon
     )[0]
+    result[1].x += 1
+    return result
   
 func _ready():
   execute()
@@ -42,21 +47,17 @@ func execute():
       return s.y_intersections(y)
   ).filter(func(s): return s != null)
   
+  # The line is contiguous in this case so just taking the endpoints works
   polylines.sort_custom(func(a,b): return a[0].x < b[0].x)
-  var sum = 0
-  for i in polylines.size():
-    sum += polylines[i][1].x - polylines[i][0].x + 1
-    if i > 0 && polylines[i-1][1].x >= polylines[i][0].x:
-      sum -= polylines[i-1][1].x - polylines[i][0].x + 1
-  
+  var sum = polylines[polylines.size() - 1][1].x - polylines[0][0].x
   output.text = "%d" % (round(sum) - 1)
+  print(output.text)
 
 func parse_input():
-  var sensors = []
   var regex = RegEx.new()
   regex.compile("-?\\d+")
 
-  for line in input_box.text.split("\n"):
+  for line in input.split("\n"):
     var result = regex.search_all(line).map(
       func(s): return s.get_string().to_int()
     )
@@ -66,3 +67,16 @@ func parse_input():
         Vector2(result[2], result[3])
       ))
   return sensors
+
+func _draw():
+  var scale = 10_000
+  for sensor in sensors:
+    var smallygon = []
+    for vertex in sensor.polygon:
+      smallygon.push_back(vertex / scale)
+      draw_colored_polygon(PackedVector2Array(smallygon), Color(Color.MEDIUM_SPRING_GREEN, 0.2))
+
+  draw_polyline(PackedVector2Array([
+      Vector2(500000000, y) / scale,
+      Vector2(-500000000, y) / scale
+    ]), Color.CRIMSON)
