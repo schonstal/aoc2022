@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyqtgk67vrjw4"]
+[gd_scene load_steps=3 format=3 uid="uid://dso4a0hto7fpr"]
 
-[ext_resource type="Script" path="res://PartOne.gd" id="1_uiijl"]
+[ext_resource type="Script" path="res://Solution.gd" id="1_uiijl"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="2_kpaly"]
 
 [node name="Control" type="Control"]

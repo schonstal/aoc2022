@@ -58,7 +58,7 @@ func part_two():
     
   queue_redraw()
   print(solution)
-  print(4000000 * solution.x + solution.y)
+  print(4000000 * int(round(solution.x)) + int(round(solution.y)))
 
 func parse_input():
   var regex = RegEx.new()
