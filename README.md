@@ -1,3 +1,3 @@
 # Advent of Code 2022
 
-I may or may not do them all.
+I am only going to do ones that seem fun, but here's my solutions
