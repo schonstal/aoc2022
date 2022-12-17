@@ -92,5 +92,12 @@ size_flags_vertical = 3
 editable = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(200, 200)
 current = true
+position_smoothing_enabled = true
 script = ExtResource("2_kpaly")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
