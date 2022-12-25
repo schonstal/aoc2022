@@ -44,9 +44,6 @@ func find_generation():
 	rd = RenderingServer.create_local_rendering_device()
 	while buffer.decode_u32(buffer_size-4) != cell_state.ELF:
 		buffer = compute_generation(buffer)
-		if generation == 0:
-			print("minute ", generation + 1)
-			print_buffer(buffer)
 		generation += 1
 	var end = Time.get_ticks_msec()
 	print("completed in ", end - start, "ms")
