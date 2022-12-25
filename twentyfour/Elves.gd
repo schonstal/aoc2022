@@ -31,6 +31,7 @@ var content = """#.######
 var lines:PackedStringArray
 
 var compute_thread:Thread
+var rd:RenderingDevice
 
 func _ready():
 	compute_thread = Thread.new()
@@ -39,8 +40,12 @@ func _ready():
 func find_generation():
 	var generation = 0
 	var buffer = parse_input()
-	while buffer.decode_u32(buffer_size-4) != cell_state.ELF:
+	rd = RenderingServer.create_local_rendering_device()
+#	while buffer.decode_u32(buffer_size-4) != cell_state.ELF:
+	while generation < 18:
 		buffer = compute_generation(buffer)
+		print("minute ", generation + 1)
+		print_buffer(buffer)
 		generation += 1
 	
 	print(generation + 1)
@@ -65,8 +70,6 @@ func parse_input():
 	return buffer
 	
 func compute_generation(input_buffer:PackedByteArray) -> PackedByteArray:
-	var rd = RenderingServer.create_local_rendering_device()
-	
 	# Create shader and pipeline
 	var shader_spirv = shader_file.get_spirv()
 	var shader = rd.shader_create_from_spirv(shader_spirv)
@@ -98,7 +101,7 @@ func compute_generation(input_buffer:PackedByteArray) -> PackedByteArray:
 	var compute_list = rd.compute_list_begin()
 	rd.compute_list_bind_compute_pipeline(compute_list, pipeline)
 	rd.compute_list_bind_uniform_set(compute_list, uniform_set, 0)
-	rd.compute_list_dispatch(compute_list, x_groups, y_groups, 1)
+	rd.compute_list_dispatch(compute_list, 1, 4, 1)
 	#rd.compute_list_add_barrier(compute_list)
 	rd.compute_list_end()
 	rd.submit()
