@@ -7,12 +7,12 @@
 #define UP    2
 #define	RIGHT 1
 
-#define WIDTH 6
-#define HEIGHT 4
+#define WIDTH 100
+#define HEIGHT 35
 
-#define INDEX(vector) (vector.x + vector.y * HEIGHT)
-#define POSITION uvec2(gl_GlobalInvocationID.x, gl_GlobalInvocationID.y + gl_WorkGroupID.y * 10)
-#define OUT_OF_BOUNDS(p) (p.x > WIDTH || p.y > HEIGHT)
+#define INDEX(vector) (vector.x + (vector.y * WIDTH))
+#define POSITION uvec2(gl_GlobalInvocationID.x, gl_GlobalInvocationID.y)
+#define OUT_OF_BOUNDS(p) (p.x >= WIDTH || p.y >= HEIGHT)
 
 layout(local_size_x = 100, local_size_y = 10, local_size_z = 1) in;
 

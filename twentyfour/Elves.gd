@@ -40,19 +40,21 @@ func _ready():
 func find_generation():
 	var generation = 0
 	var buffer = parse_input()
+	var start = Time.get_ticks_msec()
 	rd = RenderingServer.create_local_rendering_device()
-#	while buffer.decode_u32(buffer_size-4) != cell_state.ELF:
-	while generation < 18:
+	while buffer.decode_u32(buffer_size-4) != cell_state.ELF:
 		buffer = compute_generation(buffer)
-		print("minute ", generation + 1)
-		print_buffer(buffer)
+		if generation == 0:
+			print("minute ", generation + 1)
+			print_buffer(buffer)
 		generation += 1
-	
+	var end = Time.get_ticks_msec()
+	print("completed in ", end - start, "ms")
 	print(generation + 1)
 	
 func parse_input():
 	var file = FileAccess.open("res://input.txt", FileAccess.READ)
-#	content = file.get_as_text()
+	content = file.get_as_text()
 	lines = content.split("\n")
 	x_groups = lines[0].length() - 2
 	y_groups = lines.size() - 3
