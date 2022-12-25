@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://d03vhilifyp2y"
+path="res://.godot/imported/cellular_automata.glsl-52f231c4fcc1b038b9488812ec57f172.res"
+
+[deps]
+
+source_file="res://cellular_automata.glsl"
+dest_files=["res://.godot/imported/cellular_automata.glsl-52f231c4fcc1b038b9488812ec57f172.res"]
+
+[params]
+
